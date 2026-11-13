@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../context/CartContext'; // 👈 Importar el contexto
+import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext'; // 👈 Importar UserContext
 
 const Navbar = () => {
-  const { total } = useContext(CartContext); // 👈 Obtener el total global
-  const token = false;
+  const { total } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext); // 👈 Extraer token y logout
 
   return (
     <nav className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#1a1a1a', padding: '12px 24px', color: '#fff' }}>
@@ -18,6 +19,12 @@ const Navbar = () => {
             <Link to="/profile" style={{ color: '#fff', textDecoration: 'none', border: '1px solid #fff', padding: '5px 10px', borderRadius: '4px' }}>
               🔓 Profile
             </Link>
+            <button 
+              onClick={logout} 
+              style={{ background: 'transparent', color: '#fff', border: '1px solid #fff', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer' }}
+            >
+              🔒 Logout
+            </button>
           </>
         ) : (
           <>
@@ -33,7 +40,7 @@ const Navbar = () => {
 
       <div className="navbar-right">
         <Link to="/cart" style={{ color: '#fff', textDecoration: 'none', border: '1px solid #fff', padding: '5px 12px', borderRadius: '4px' }}>
-          🛒 Total: ${total.toLocaleString('es-CL')} {/* 👈 Total dinámico */}
+          🛒 Total: ${total.toLocaleString('es-CL')}
         </Link>
       </div>
     </nav>

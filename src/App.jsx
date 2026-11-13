@@ -1,31 +1,45 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
-// Importación de vistas desde la carpeta pages
 import Home from './pages/Home';
-import Register from "./pages/RegisterPage";
-import Login from './pages/LoginPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import Cart from './pages/Cart';
 import Pizza from './pages/Pizza';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
-
-import './App.css';
+import { UserContext } from './context/UserContext';
 
 function App() {
+  const { token } = useContext(UserContext);
+
   return (
-    <div className="app-layout">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
-      <div className="content-wrap">
+      <div style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          
+          {/* Si hay token, redirige login/register al home */}
+          <Route 
+            path="/login" 
+            element={!token ? <LoginPage /> : <Navigate to="/" />} 
+          />
+          <Route 
+            path="/register" 
+            element={!token ? <RegisterPage /> : <Navigate to="/" />} 
+          />
+          
           <Route path="/cart" element={<Cart />} />
-          <Route path="/pizza/p001" element={<Pizza />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+          
+          {/* Ruta protegida: si no hay token, redirige a /login */}
+          <Route 
+            path="/profile" 
+            element={token ? <Profile /> : <Navigate to="/login" />} 
+          />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

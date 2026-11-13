@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Cart = () => {
   const { cart, incrementQuantity, decrementQuantity, total } = useContext(CartContext);
+  const { token } = useContext(UserContext); // 👈 Obtener token
 
   return (
     <div style={{ padding: '30px 20px', maxWidth: '800px', margin: '0 auto' }}>
@@ -26,8 +28,22 @@ const Cart = () => {
             </div>
           ))}
           <h3 style={{ marginTop: '30px' }}>Total: ${total.toLocaleString('es-CL')}</h3>
-          <button style={{ background: '#28a745', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', marginTop: '15px' }}>
-            Ir a Pagar 💳
+          
+          {/* Botón condicional de pago */}
+          <button 
+            disabled={!token}
+            style={{ 
+              background: token ? '#28a745' : '#ccc', 
+              color: '#fff', 
+              border: 'none', 
+              padding: '10px 20px', 
+              borderRadius: '4px', 
+              fontSize: '1rem', 
+              cursor: token ? 'pointer' : 'not-allowed', 
+              marginTop: '15px' 
+            }}
+          >
+            {token ? 'Ir a Pagar 💳' : 'Inicia sesión para pagar 🔒'}
           </button>
         </div>
       )}
