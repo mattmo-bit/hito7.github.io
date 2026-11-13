@@ -1,16 +1,18 @@
-# React + Vite
+# 🍕 Pizzería Mamma Mía! - Resumen de Herramientas (Hito 7)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto fue desarrollado utilizando un stack moderno enfocado en componentes, enrutamiento avanzado y gestión de estado global en React.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Herramientas y Tecnologías Utilizadas
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **React 18:** Biblioteca principal para la construcción de interfaces de usuario basadas en componentes reutilizables.
+* **React Router DOM (v6):** 
+  * Permite la navegación tipo SPA (Single Page Application).
+  * `useParams`: Captura parámetros dinámicos de la URL para mostrar el detalle de cada producto (`/pizza/:id`).
+  * `Navigate`: Implementa redirecciones automáticas para proteger rutas privadas (`/profile`) y restringir páginas de acceso público (`/login`, `/register`).
+* **Context API (React Context):** 
+  * `CartContext`: Centraliza y gestiona el estado global del carrito de compras (añadir, sumar, restar y calcular el total en tiempo real).
+  * `UserContext`: Administra el estado de autenticación del usuario (`token`) y las acciones de sesión (`logout`).
+* **Vite:** Entorno de desarrollo rápido y compilador de código optimizado para React.
+* **JavaScript (ES6+) & CSS:** Lógica de programación asíncrona (`async/await` para el consumo de la API REST) y estilos visuales adaptados.
